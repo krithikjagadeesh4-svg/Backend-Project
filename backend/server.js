@@ -1,4 +1,6 @@
 
+require('dotenv').config()
+
 const express = require("express")
 const mongoose = require("mongoose")
 const cors = require("cors")
@@ -8,7 +10,7 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 
-mongoose.connect(process.env.MONGODB_URI || "mongodb+srv://krithikjagadeesh4_db_user:tvk2026@cluster0.ailrzqe.mongodb.net/?appName=Cluster0")
+mongoose.connect(process.env.MONGODB_URI)
 
 const User = mongoose.model("User", {
   name: String,
