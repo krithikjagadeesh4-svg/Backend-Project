@@ -10,6 +10,7 @@ const app = express()
 
 app.use(cors())
 app.use(express.json())
+app.use(express.static(path.join(__dirname, 'public')))
 
 const mongoUri = process.env.MONGODB_URI
 if (!mongoUri) {
@@ -39,126 +40,7 @@ const User = mongoose.model("User", {
 })
 
 app.get("/", (req, res) => {
-  res.send(`
-<!DOCTYPE html>
-<html>
-
-<head>
-  <title>Student Information Form</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      max-width: 600px;
-      margin: 0 auto;
-      padding: 20px;
-    }
-    form div {
-      margin-bottom: 15px;
-    }
-    label {
-      display: block;
-      margin-bottom: 5px;
-      font-weight: bold;
-    }
-    input {
-      width: 100%;
-      padding: 8px;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      box-sizing: border-box;
-    }
-    button {
-      background-color: #4CAF50;
-      color: white;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 16px;
-    }
-    button:hover {
-      background-color: #45a049;
-    }
-  </style>
-</head>
-
-<body>
-
-  <h1>Student Information Form</h1>
-
-  <form id="studentForm">
-    <div>
-      <label for="name">Name:</label>
-      <input type="text" id="name" placeholder="Enter name" required>
-    </div>
-
-    <div>
-      <label for="rollNo">Roll No:</label>
-      <input type="text" id="rollNo" placeholder="Enter roll number" required>
-    </div>
-
-    <div>
-      <label for="department">Department:</label>
-      <input type="text" id="department" placeholder="Enter department" required>
-    </div>
-
-    <div>
-      <label for="phoneNo">Phone No:</label>
-      <input type="tel" id="phoneNo" placeholder="Enter phone number" required>
-    </div>
-
-    <div>
-      <label for="yearOfStudy">Year of Study:</label>
-      <input type="text" id="yearOfStudy" placeholder="Enter year of study" required>
-    </div>
-
-    <button type="submit">Save</button>
-  </form>
-
-  <script>
-
-    document.getElementById('studentForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      saveData();
-    });
-
-    async function saveData() {
-
-      const name = document.getElementById("name").value
-      const rollNo = document.getElementById("rollNo").value
-      const department = document.getElementById("department").value
-      const phoneNo = document.getElementById("phoneNo").value
-      const yearOfStudy = document.getElementById("yearOfStudy").value
-
-      const response = await fetch("/save", {
-
-        method: "POST",
-
-        headers: {
-          "Content-Type": "application/json"
-        },
-
-        body: JSON.stringify({
-          name: name,
-          rollNo: rollNo,
-          department: department,
-          phoneNo: phoneNo,
-          yearOfStudy: yearOfStudy
-        })
-
-      })
-
-      const data = await response.text()
-
-      alert(data)
-    }
-
-  </script>
-
-</body>
-
-</html>
-  `)
+  res.sendFile(path.join(__dirname, 'public', 'index.html'))
 })
 
 app.post("/save", async (req, res) => {
