@@ -1,5 +1,6 @@
 
-require('dotenv').config()
+const path = require('path')
+require('dotenv').config({ path: path.resolve(__dirname, '../.env') })
 
 const express = require("express")
 const mongoose = require("mongoose")
@@ -10,7 +11,24 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 
-mongoose.connect(process.env.MONGODB_URI)
+const mongoUri = process.env.MONGODB_URI
+if (!mongoUri) {
+  console.error('Error: MONGODB_URI is not defined. Please add it to your .env file.')
+  process.exit(1)
+}
+
+mongoose.connect(mongoUri)
+  .then(() => {
+    console.log('Connected to MongoDB successfully.')
+    const PORT = process.env.PORT || 3000
+    app.listen(PORT, '0.0.0.0', () => {
+      console.log(`Server started on port ${PORT}`)
+    })
+  })
+  .catch(error => {
+    console.error('MongoDB connection error:', error.message)
+    process.exit(1)
+  })
 
 const User = mongoose.model("User", {
   name: String,
@@ -158,7 +176,3 @@ app.post("/save", async (req, res) => {
   res.send("Data saved")
 })
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, '0.0.0.0', () => {
-  console.log(`Server started on port ${PORT}`);
-})

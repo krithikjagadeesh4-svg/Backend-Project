@@ -7,17 +7,22 @@
     "start": "node server.js",
     "dev": "node server.js"
   },
-  "keywords": ["student", "form", "mongodb", "express"],
+  "keywords": [
+    "student",
+    "form",
+    "mongodb",
+    "express"
+  ],
   "author": "Krithik Jagadeesh",
   "license": "ISC",
-  "engines": {
-    "node": ">=14.0.0"
-  },
+ "engines": {
+  "node": "20.x"
+},
   "type": "commonjs",
   "dependencies": {
     "cors": "^2.8.6",
     "dotenv": "^16.4.5",
     "express": "^5.2.1",
-    "mongoose": "^9.6.2"
+    "mongoose": "^8.5.1"
   }
 }
