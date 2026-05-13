@@ -1,0 +1,22 @@
+{
+  "name": "backend-project",
+  "version": "1.0.0",
+  "description": "Student Information Form - Full Stack Application",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": ["student", "form", "mongodb", "express"],
+  "author": "Krithik Jagadeesh",
+  "license": "ISC",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "type": "commonjs",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "mongoose": "^9.6.2"
+  }
+}
